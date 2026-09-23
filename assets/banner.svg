@@ -1,0 +1,178 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1f2937" />
+    </linearGradient>
+
+    <!-- Accent Gradient -->
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+
+    <!-- Glassmorphic Card Background -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02" />
+    </linearGradient>
+
+    <!-- Logo Gradient -->
+    <linearGradient id="logoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="25" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="420" rx="16" fill="url(#bgGrad)" />
+
+  <!-- Subtle Ambient Glow -->
+  <circle cx="200" cy="120" r="160" fill="#3b82f6" fill-opacity="0.12" filter="url(#glow)" />
+  <circle cx="1020" cy="300" r="180" fill="#8b5cf6" fill-opacity="0.1" filter="url(#glow)" />
+
+  <!-- Outer Border -->
+  <rect x="1" y="1" width="1198" height="418" rx="15" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1.5" />
+
+  <!-- Top Decorative Badge -->
+  <g transform="translate(60, 48)">
+    <rect width="190" height="32" rx="16" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1" />
+    <circle cx="16" cy="16" r="5" fill="#10b981" />
+    <text x="32" y="21" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif" font-size="12" font-weight="600" letter-spacing="0.5">OPEN SOURCE UTILITY</text>
+  </g>
+
+  <!-- App Logo Icon -->
+  <g transform="translate(60, 105)">
+    <rect width="84" height="84" rx="20" fill="url(#logoBg)" />
+    <!-- Grid elements -->
+    <rect x="18" y="18" width="20" height="20" rx="5" fill="#ffffff" fill-opacity="0.9" />
+    <rect x="46" y="18" width="20" height="20" rx="5" fill="#34d399" />
+    <rect x="18" y="46" width="20" height="20" rx="5" fill="#fbbf24" />
+    <rect x="46" y="46" width="20" height="20" rx="5" fill="#f87171" />
+    <!-- Center badge -->
+    <circle cx="42" cy="42" r="10" fill="#0f172a" />
+    <path d="M38 42 L41 45 L47 38" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Header & Typography -->
+  <g transform="translate(165, 125)">
+    <text x="0" y="32" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif" font-size="40" font-weight="800" letter-spacing="-0.5">Linux App Manager</text>
+    <text x="0" y="62" fill="url(#primaryGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif" font-size="18" font-weight="600">The Modern, Minimalist Application Hub &amp; Uninstaller for Linux</text>
+  </g>
+
+  <!-- Tagline Paragraph -->
+  <text x="60" y="240" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif" font-size="15" font-weight="400">
+    Manage, discover, launch, and cleanly uninstall packages across all Linux application formats in one unified dashboard.
+  </text>
+
+  <!-- Format Badges Bar -->
+  <g transform="translate(60, 275)">
+    <!-- Flatpak -->
+    <g transform="translate(0, 0)">
+      <rect width="135" height="40" rx="10" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-opacity="0.35" stroke-width="1.2" />
+      <circle cx="20" cy="20" r="4" fill="#34d399" />
+      <text x="34" y="25" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700">Flatpak</text>
+    </g>
+
+    <!-- Debian -->
+    <g transform="translate(150, 0)">
+      <rect width="155" height="40" rx="10" fill="#3b82f6" fill-opacity="0.15" stroke="#3b82f6" stroke-opacity="0.35" stroke-width="1.2" />
+      <circle cx="20" cy="20" r="4" fill="#60a5fa" />
+      <text x="34" y="25" fill="#60a5fa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700">Debian (.deb)</text>
+    </g>
+
+    <!-- Snap -->
+    <g transform="translate(320, 0)">
+      <rect width="125" height="40" rx="10" fill="#f97316" fill-opacity="0.15" stroke="#f97316" stroke-opacity="0.35" stroke-width="1.2" />
+      <circle cx="20" cy="20" r="4" fill="#fb923c" />
+      <text x="34" y="25" fill="#fb923c" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700">Snap</text>
+    </g>
+
+    <!-- AppImage -->
+    <g transform="translate(460, 0)">
+      <rect width="145" height="40" rx="10" fill="#a855f7" fill-opacity="0.15" stroke="#a855f7" stroke-opacity="0.35" stroke-width="1.2" />
+      <circle cx="20" cy="20" r="4" fill="#c084fc" />
+      <text x="34" y="25" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700">AppImage</text>
+    </g>
+  </g>
+
+  <!-- Right Side Interactive UI Mockup Card -->
+  <g transform="translate(680, 55)">
+    <!-- Container Card -->
+    <rect width="460" height="310" rx="16" fill="url(#cardGrad)" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1" />
+
+    <!-- Card Window Controls -->
+    <circle cx="24" cy="22" r="5" fill="#ef4444" />
+    <circle cx="40" cy="22" r="5" fill="#f59e0b" />
+    <circle cx="56" cy="22" r="5" fill="#10b981" />
+    <text x="230" y="26" text-anchor="middle" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600">Linux App Manager</text>
+
+    <!-- Fake Search Bar -->
+    <rect x="20" y="44" width="420" height="30" rx="8" fill="#ffffff" fill-opacity="0.05" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1" />
+    <text x="36" y="64" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12">🔍 Search 91 installed applications...</text>
+
+    <!-- Mock Row 1: Krita -->
+    <g transform="translate(20, 88)">
+      <rect width="420" height="60" rx="10" fill="#ffffff" fill-opacity="0.04" />
+      <circle cx="32" cy="30" r="16" fill="#3b82f6" fill-opacity="0.3" />
+      <text x="24" y="36" fill="#93c5fd" font-family="sans-serif" font-size="16">🎨</text>
+      <text x="60" y="26" fill="#f1f5f9" font-family="sans-serif" font-size="14" font-weight="700">Krita</text>
+      <rect x="105" y="14" width="60" height="18" rx="9" fill="#10b981" fill-opacity="0.2" />
+      <text x="114" y="27" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="700">Flatpak</text>
+      <text x="60" y="46" fill="#64748b" font-family="sans-serif" font-size="11">Digital Painting &amp; Creative Sketching</text>
+
+      <!-- Buttons -->
+      <rect x="300" y="18" width="52" height="24" rx="6" fill="#2563eb" />
+      <text x="314" y="34" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="700">Open</text>
+      <rect x="358" y="18" width="52" height="24" rx="6" fill="#dc2626" />
+      <text x="368" y="34" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="700">Delete</text>
+    </g>
+
+    <!-- Mock Row 2: Google Chrome -->
+    <g transform="translate(20, 158)">
+      <rect width="420" height="60" rx="10" fill="#ffffff" fill-opacity="0.04" />
+      <circle cx="32" cy="30" r="16" fill="#10b981" fill-opacity="0.3" />
+      <text x="24" y="36" fill="#86efac" font-family="sans-serif" font-size="16">🌐</text>
+      <text x="60" y="26" fill="#f1f5f9" font-family="sans-serif" font-size="14" font-weight="700">Google Chrome</text>
+      <rect x="175" y="14" width="88" height="18" rx="9" fill="#3b82f6" fill-opacity="0.2" />
+      <text x="184" y="27" fill="#60a5fa" font-family="sans-serif" font-size="10" font-weight="700">Debian (.deb)</text>
+      <text x="60" y="46" fill="#64748b" font-family="sans-serif" font-size="11">Fast, secure Web Browser</text>
+
+      <!-- Buttons -->
+      <rect x="300" y="18" width="52" height="24" rx="6" fill="#2563eb" />
+      <text x="314" y="34" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="700">Open</text>
+      <rect x="358" y="18" width="52" height="24" rx="6" fill="#dc2626" />
+      <text x="368" y="34" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="700">Delete</text>
+    </g>
+
+    <!-- Mock Row 3: VLC -->
+    <g transform="translate(20, 228)">
+      <rect width="420" height="60" rx="10" fill="#ffffff" fill-opacity="0.04" />
+      <circle cx="32" cy="30" r="16" fill="#f97316" fill-opacity="0.3" />
+      <text x="24" y="36" fill="#fdba74" font-family="sans-serif" font-size="16">🎬</text>
+      <text x="60" y="26" fill="#f1f5f9" font-family="sans-serif" font-size="14" font-weight="700">VLC Media Player</text>
+      <rect x="185" y="14" width="60" height="18" rx="9" fill="#10b981" fill-opacity="0.2" />
+      <text x="194" y="27" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="700">Flatpak</text>
+      <text x="60" y="46" fill="#64748b" font-family="sans-serif" font-size="11">Multimedia audio and video player</text>
+
+      <!-- Buttons -->
+      <rect x="300" y="18" width="52" height="24" rx="6" fill="#2563eb" />
+      <text x="314" y="34" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="700">Open</text>
+      <rect x="358" y="18" width="52" height="24" rx="6" fill="#dc2626" />
+      <text x="368" y="34" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="700">Delete</text>
+    </g>
+  </g>
+
+  <!-- Footer Specs -->
+  <text x="60" y="375" fill="#64748b" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12">
+    Built with Python 3, GTK 4, Libadwaita &amp; AppImageKit • Clean Root Authorization via PolicyKit (pkexec)
+  </text>
+</svg>

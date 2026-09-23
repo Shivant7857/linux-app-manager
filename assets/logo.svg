@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3584e4"/>
+      <stop offset="100%" stop-color="#1c71d8"/>
+    </linearGradient>
+    <linearGradient id="box" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e1e1e1"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- Base Rounded Rectangle -->
+  <rect x="8" y="8" width="112" height="112" rx="26" fill="url(#bg)" filter="url(#shadow)"/>
+  
+  <!-- Grid of 4 soft squares representing applications -->
+  <rect x="28" y="28" width="30" height="30" rx="8" fill="#ffffff" fill-opacity="0.95"/>
+  <rect x="70" y="28" width="30" height="30" rx="8" fill="#57e389" fill-opacity="0.95"/>
+  <rect x="28" y="70" width="30" height="30" rx="8" fill="#f6d32d" fill-opacity="0.95"/>
+  <rect x="70" y="70" width="30" height="30" rx="8" fill="#ff7800" fill-opacity="0.95"/>
+  
+  <!-- Center Accent Badge (Check / Manager Badge) -->
+  <circle cx="64" cy="64" r="14" fill="#241f31"/>
+  <path d="M58 64 L62 68 L70 59" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

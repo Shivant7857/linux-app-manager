@@ -1,0 +1,40 @@
+name: Build & Verify AppImage
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-gi gir1.2-gtk-4.0 gir1.2-adw-1 squashfs-tools gcc make
+
+    - name: Verify Python Code
+      run: |
+        python3 -m py_compile app.py scanner.py
+
+    - name: Build AppImage
+      run: |
+        chmod +x build_appdir.sh package_appimage.sh
+        ./package_appimage.sh
+
+    - name: Test AppImage Flags
+      run: |
+        ./LinuxAppManager-x86_64.AppImage --appimage-version
+        ./LinuxAppManager-x86_64.AppImage --appimage-help
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: LinuxAppManager-x86_64.AppImage
+        path: LinuxAppManager-x86_64.AppImage
