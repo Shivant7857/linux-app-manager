@@ -3,11 +3,12 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Shivant7857/linux-app-manager"><img src="https://img.shields.io/badge/Platform-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux"></a>
-  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></a>
-  <a href="https://gnome.pages.gitlab.gnome.org/libadwaita/"><img src="https://img.shields.io/badge/GUI-GTK%204%20%2B%20Libadwaita-4A90D9?style=for-the-badge&logo=gnome&logoColor=white" alt="GTK4"></a>
-  <a href="https://appimage.org"><img src="https://img.shields.io/badge/Format-AppImage-16a34a?style=for-the-badge&logo=appimage&logoColor=white" alt="AppImage"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License"></a>
+  <a href="https://github.com/Shivant7857/linux-app-manager/releases/latest"><img src="https://img.shields.io/github/v/release/Shivant7857/linux-app-manager?style=for-the-badge&color=2563eb&logo=github" alt="Release Version"></a>
+  <a href="https://github.com/Shivant7857/linux-app-manager/releases"><img src="https://img.shields.io/github/downloads/Shivant7857/linux-app-manager/total?style=for-the-badge&color=10b981&logo=github" alt="Downloads"></a>
+  <a href="https://github.com/Shivant7857/linux-app-manager"><img src="https://img.shields.io/badge/Platform-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux Platform"></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10+"></a>
+  <a href="https://gnome.pages.gitlab.gnome.org/libadwaita/"><img src="https://img.shields.io/badge/GUI-GTK%204%20%2B%20Libadwaita-4A90D9?style=for-the-badge&logo=gnome&logoColor=white" alt="GTK4 Libadwaita"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT License"></a>
 </p>
 
 <p align="center">
@@ -15,7 +16,25 @@
   Manage, launch, and cleanly uninstall packages across all packaging systems (<b>Flatpak</b>, <b>Debian .deb / APT</b>, <b>Snap</b>, and <b>AppImage</b>) from a single unified interface.
 </p>
 
+<p align="center">
+  <a href="https://github.com/Shivant7857/linux-app-manager/releases/download/v1.0.0/LinuxAppManager-x86_64.AppImage">
+    <img src="https://img.shields.io/badge/📥%20Download-AppImage%20(v1.0.0)-16a34a?style=for-the-badge&logo=appimage&logoColor=white" alt="Download AppImage">
+  </a>
+</p>
+
 ---
+
+## 📑 Table of Contents
+
+- [📸 Screenshots](#-screenshots)
+- [🌟 Key Features](#-key-features)
+- [📊 Package Support Matrix](#-package-support-matrix)
+- [📥 Quick Installation & Download](#-installation--usage)
+- [🔨 Building From Source & AppImage Packaging](#-building-the-appimage)
+- [🗂️ Project Directory Structure](#️-project-structure)
+- [🛣️ Future Roadmap](#️-roadmap)
+- [🤝 Contributing & Community](#-contributing)
+- [📄 Open Source License](#-license)
 
 ## 📸 Screenshots
 
