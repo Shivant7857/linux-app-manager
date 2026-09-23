@@ -20,8 +20,20 @@
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="assets/screenshot.png" alt="Linux App Manager Preview" width="900" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);">
+  <img src="assets/screenshot-detail.png" alt="Linux App Manager Window View" width="650" style="border-radius: 12px; box-shadow: 0 12px 35px rgba(0,0,0,0.4);">
 </p>
+
+<p align="center">
+  <em>Modern, native Libadwaita dark interface running on Linux with real-time app counts, status badges, and quick actions.</em>
+</p>
+
+<details>
+  <summary><b>🔍 Click here to view Fullscreen / Wide View</b></summary>
+  <br>
+  <p align="center">
+    <img src="assets/screenshot-main.png" alt="Linux App Manager Wide View" width="100%" style="border-radius: 10px;">
+  </p>
+</details>
 
 ---
 
