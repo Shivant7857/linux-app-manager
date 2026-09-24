@@ -9,6 +9,7 @@ gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
 from gi.repository import Gtk, Adw, Gio, GLib, Gdk
 
+import installer
 from scanner import scan_all_applications
 
 CSS_STYLES = b"""
@@ -174,6 +175,15 @@ class LinuxAppManagerWindow(Adw.ApplicationWindow):
         header = Adw.HeaderBar()
         title_widget = Adw.WindowTitle(title="Linux App Manager", subtitle="Manage .deb, Flatpak, Snap & AppImage")
         header.set_title_widget(title_widget)
+        
+        # Install File Button
+        install_btn = Gtk.Button()
+        install_content = Adw.ButtonContent(icon_name="list-add-symbolic", label="Install File")
+        install_btn.set_child(install_content)
+        install_btn.add_css_class("suggested-action")
+        install_btn.set_tooltip_text("Install a .deb, Flatpak, or .AppImage package")
+        install_btn.connect("clicked", lambda _: self.on_choose_install_file())
+        header.pack_start(install_btn)
         
         refresh_btn = Gtk.Button(icon_name="view-refresh-symbolic")
         refresh_btn.set_tooltip_text("Refresh Application List")
@@ -382,11 +392,125 @@ class LinuxAppManagerWindow(Adw.ApplicationWindow):
             dialog.add_response("ok", "OK")
             dialog.present()
 
+    def on_choose_install_file(self):
+        chooser = Gtk.FileChooserNative.new(
+            "Select Package to Install",
+            self,
+            Gtk.FileChooserAction.OPEN,
+            "Install",
+            "Cancel"
+        )
+        
+        filter_all = Gtk.FileFilter()
+        filter_all.set_name("All Supported Packages (*.deb, *.flatpak, *.flatpakref, *.AppImage)")
+        filter_all.add_pattern("*.deb")
+        filter_all.add_pattern("*.flatpak")
+        filter_all.add_pattern("*.flatpakref")
+        filter_all.add_pattern("*.AppImage")
+        filter_all.add_pattern("*.appimage")
+        chooser.add_filter(filter_all)
+
+        filter_deb = Gtk.FileFilter()
+        filter_deb.set_name("Debian Packages (*.deb)")
+        filter_deb.add_pattern("*.deb")
+        chooser.add_filter(filter_deb)
+
+        filter_flatpak = Gtk.FileFilter()
+        filter_flatpak.set_name("Flatpak Packages (*.flatpak, *.flatpakref)")
+        filter_flatpak.add_pattern("*.flatpak")
+        filter_flatpak.add_pattern("*.flatpakref")
+        chooser.add_filter(filter_flatpak)
+
+        filter_appimage = Gtk.FileFilter()
+        filter_appimage.set_name("AppImages (*.AppImage)")
+        filter_appimage.add_pattern("*.AppImage")
+        filter_appimage.add_pattern("*.appimage")
+        chooser.add_filter(filter_appimage)
+
+        def on_response(dialog, response_id):
+            if response_id == Gtk.ResponseType.ACCEPT:
+                gfile = dialog.get_file()
+                if gfile:
+                    path = gfile.get_path()
+                    if path:
+                        self.prompt_install_file(path)
+            dialog.destroy()
+
+        chooser.connect("response", on_response)
+        chooser.show()
+
+    def prompt_install_file(self, file_path):
+        try:
+            info = installer.inspect_package(file_path)
+        except Exception as e:
+            self.show_toast(f"Error reading package: {e}")
+            return
+
+        name = info.get('name', os.path.basename(file_path))
+        pkg_type = info.get('type', 'Unknown')
+        version = info.get('version', '')
+        size = info.get('size', '')
+        desc = info.get('description', '')
+
+        dialog = Adw.MessageDialog.new(self, f"Install {name}?", None)
+        body = f"<b>Type:</b> {pkg_type}\n<b>File:</b> {os.path.basename(file_path)}"
+        if version:
+            body += f"\n<b>Version:</b> {version}"
+        if size:
+            body += f"\n<b>Size:</b> {size}"
+        if desc:
+            body += f"\n\n{desc}"
+
+        if info.get('requires_root'):
+            body += "\n\n<i>(A system password prompt will appear to authorize installation)</i>"
+
+        dialog.set_body(body)
+        dialog.set_body_use_markup(True)
+
+        dialog.add_response("cancel", "Cancel")
+        dialog.add_response("install", "Install Package")
+        dialog.set_response_appearance("install", Adw.ResponseAppearance.SUGGESTED)
+        dialog.set_default_response("install")
+        dialog.set_close_response("cancel")
+
+        def on_response(dlg, response):
+            if response == "install":
+                self.execute_install(file_path, info)
+
+        dialog.connect("response", on_response)
+        dialog.present()
+
+    def execute_install(self, file_path, info):
+        name = info.get('name', 'Package')
+        self.show_toast(f"Installing {name}... Please wait")
+
+        def worker():
+            success, msg = installer.install_package(file_path, info)
+            if success:
+                GLib.idle_add(self.on_install_success, name, msg)
+            else:
+                GLib.idle_add(self.on_install_failed, name, msg)
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def on_install_success(self, name, message):
+        self.show_toast(f"✓ {name} installed successfully!", timeout=5)
+        self.load_applications_async()
+
+    def on_install_failed(self, name, error_msg):
+        if "Authentication failed" in error_msg or "cancelled" in error_msg.lower() or "not authorized" in error_msg.lower():
+            self.show_toast(f"Installation cancelled by user.")
+        else:
+            dialog = Adw.MessageDialog.new(self, f"Installation Failed", None)
+            dialog.set_body(f"Failed to install {name}:\n\n{error_msg[:400]}")
+            dialog.add_response("ok", "OK")
+            dialog.present()
+
 class LinuxAppManager(Adw.Application):
     def __init__(self):
         super().__init__(
             application_id="com.github.linuxappmanager.App",
-            flags=Gio.ApplicationFlags.FLAGS_NONE
+            flags=Gio.ApplicationFlags.HANDLES_OPEN
         )
 
     def do_startup(self):
@@ -404,7 +528,26 @@ class LinuxAppManager(Adw.Application):
         if not win:
             win = LinuxAppManagerWindow(application=self)
         win.present()
+        
+        # Check if any file argument was provided via CLI
+        for arg in sys.argv[1:]:
+            if not arg.startswith('-') and os.path.exists(arg):
+                GLib.idle_add(win.prompt_install_file, os.path.abspath(arg))
+                break
+
+    def do_open(self, *args):
+        win = self.props.active_window
+        if not win:
+            win = LinuxAppManagerWindow(application=self)
+        win.present()
+        if args and len(args) > 0 and isinstance(args[0], (list, tuple)):
+            files = args[0]
+            if files:
+                path = files[0].get_path()
+                if path and os.path.exists(path):
+                    GLib.idle_add(win.prompt_install_file, os.path.abspath(path))
 
 if __name__ == '__main__':
     app = LinuxAppManager()
     sys.exit(app.run(sys.argv))
+

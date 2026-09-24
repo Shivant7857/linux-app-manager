@@ -1,10 +1,11 @@
 [Desktop Entry]
 Name=Linux App Manager
-Comment=Manage, open, and uninstall .deb, Flatpak, Snap, and AppImage applications
-Exec=linux-app-manager
+Comment=Manage, install, and uninstall .deb, Flatpak, Snap, and AppImage applications
+Exec=linux-app-manager %F
 Icon=linux-app-manager
 Terminal=false
 Type=Application
 Categories=System;Settings;PackageManager;
-Keywords=package;flatpak;snap;deb;appimage;uninstall;remove;manager;
+Keywords=package;flatpak;snap;deb;appimage;uninstall;remove;install;manager;
+MimeType=application/vnd.debian.binary-package;application/x-deb;application/x-debian-package;application/vnd.flatpak;application/vnd.flatpak.ref;application/vnd.flatpak.repo;application/x-executable;application/x-appimage;
 StartupNotify=true

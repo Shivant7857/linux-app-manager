@@ -13,6 +13,7 @@ mkdir -p "${APPDIR}/usr/share/icons/hicolor/scalable/apps"
 echo "=== Copying application files ==="
 cp "${DIR}/app.py" "${APPDIR}/usr/bin/app.py"
 cp "${DIR}/scanner.py" "${APPDIR}/usr/bin/scanner.py"
+cp "${DIR}/installer.py" "${APPDIR}/usr/bin/installer.py"
 chmod +x "${APPDIR}/usr/bin/app.py"
 
 cp "${DIR}/linux-app-manager.desktop" "${APPDIR}/linux-app-manager.desktop"

@@ -58,11 +58,16 @@
 
 ## 🌟 Key Features
 
-- 📦 **Universal Package Management**:
+- 📦 **Universal Package Management & Discovery**:
   - 🟢 **Flatpak**: Reads application IDs, installed size, versions, and metadata from system & user remotes.
   - 🟠 **Debian (`.deb` / APT)**: Scans system desktop files and batch resolves package ownership using `dpkg -S`.
   - 🟣 **Snap**: Detects user-installed snaps, track revisions, and package information.
   - 🔵 **Standalone AppImage**: Automatically scans `~/Applications`, `~/Downloads`, `/opt`, `~/.local/bin`, and `~` for `.AppImage` files.
+- 📥 **One-Click Package Installer (NEW in v1.1.0)**:
+  - **In-App Install**: Use the header **`+ Install File`** button to browse and install `.deb`, `.flatpak`, `.flatpakref`, or `.AppImage` files.
+  - **"Open With..." Desktop Integration**: Right-click any `.deb`, `.flatpak`, or `.AppImage` in your Linux file manager and choose **Open with Linux App Manager** to inspect and install with one click!
+  - **Smart Dependency Resolution**: Installs `.deb` packages via APT to automatically pull missing dependencies.
+  - **Automated AppImage Desktop Integration**: Moves AppImages to `~/Applications/`, marks executable, and generates a `.desktop` entry in your Application Menu.
 - ⚡ **Ultra Fast Discovery**: Sub-second full system indexing (< 0.75s) using optimized batch queries and asynchronous threading.
 - 🎨 **Minimal & Modern UI**: Built with **GTK 4** and **Libadwaita**, respecting your system's dark/light theme, typography, and GNOME/Zorin OS aesthetics.
 - 🔍 **Real-Time Search & Category Filters**: Filter apps instantly by package type (`All`, `Flatpak`, `Debian (.deb)`, `Snap`, `AppImage`) or keyword.
@@ -80,12 +85,12 @@
 
 ## 📊 Package Support Matrix
 
-| Format | Discovery Mechanism | Root Privileges Needed? | Uninstall Backend |
-|---|---|---|---|
-| **Flatpak** | `flatpak list --app` | ❌ No | `flatpak uninstall -y <app-id>` |
-| **Debian (.deb)** | `Gio.AppInfo` + `dpkg -S` | 🔑 Yes (via Polkit prompt) | `pkexec apt remove -y <pkg>` |
-| **Snap** | `snap list` | 🔑 Yes (via Polkit prompt) | `pkexec snap remove <pkg>` |
-| **AppImage** | File system crawler | ❌ No (unless in `/opt`) | Safe file deletion |
+| Format | Discovery Mechanism | Installation Backend | Uninstallation Backend | Root Privileges? |
+|---|---|---|---|---|
+| **Debian (.deb)** | `Gio.AppInfo` + `dpkg -S` | `pkexec apt install -y <deb>` | `pkexec apt remove -y <pkg>` | 🔑 Yes (via Polkit prompt) |
+| **Flatpak** | `flatpak list --app` | `flatpak install -y <file>` | `flatpak uninstall -y <app-id>` | ❌ No (User) / 🔑 System |
+| **AppImage** | System directory crawler | Installs to `~/Applications` + creates `.desktop` menu launcher | Safe file deletion + removes `.desktop` | ❌ No |
+| **Snap** | `snap list` | Pre-installed / Snapcraft | `pkexec snap remove <pkg>` | 🔑 Yes (via Polkit prompt) |
 
 ---
 
