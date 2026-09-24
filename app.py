@@ -393,51 +393,81 @@ class LinuxAppManagerWindow(Adw.ApplicationWindow):
             dialog.present()
 
     def on_choose_install_file(self):
-        chooser = Gtk.FileChooserNative.new(
-            "Select Package to Install",
-            self,
-            Gtk.FileChooserAction.OPEN,
-            "Install",
-            "Cancel"
-        )
-        
-        filter_all = Gtk.FileFilter()
-        filter_all.set_name("All Supported Packages (*.deb, *.flatpak, *.flatpakref, *.AppImage)")
-        filter_all.add_pattern("*.deb")
-        filter_all.add_pattern("*.flatpak")
-        filter_all.add_pattern("*.flatpakref")
-        filter_all.add_pattern("*.AppImage")
-        filter_all.add_pattern("*.appimage")
-        chooser.add_filter(filter_all)
+        downloads = os.path.expanduser('~/Downloads')
+        home = os.path.expanduser('~')
+        start_dir = downloads if os.path.isdir(downloads) else home
+        initial_folder = Gio.File.new_for_path(start_dir)
 
-        filter_deb = Gtk.FileFilter()
-        filter_deb.set_name("Debian Packages (*.deb)")
-        filter_deb.add_pattern("*.deb")
-        chooser.add_filter(filter_deb)
+        if hasattr(Gtk, 'FileDialog'):
+            dialog = Gtk.FileDialog.new()
+            dialog.set_title("Select Package to Install")
+            dialog.set_initial_folder(initial_folder)
 
-        filter_flatpak = Gtk.FileFilter()
-        filter_flatpak.set_name("Flatpak Packages (*.flatpak, *.flatpakref)")
-        filter_flatpak.add_pattern("*.flatpak")
-        filter_flatpak.add_pattern("*.flatpakref")
-        chooser.add_filter(filter_flatpak)
+            filter_all = Gtk.FileFilter()
+            filter_all.set_name("All Supported Packages (*.deb, *.flatpak, *.flatpakref, *.AppImage)")
+            for pat in ["*.deb", "*.flatpak", "*.flatpakref", "*.AppImage", "*.appimage"]:
+                filter_all.add_pattern(pat)
 
-        filter_appimage = Gtk.FileFilter()
-        filter_appimage.set_name("AppImages (*.AppImage)")
-        filter_appimage.add_pattern("*.AppImage")
-        filter_appimage.add_pattern("*.appimage")
-        chooser.add_filter(filter_appimage)
+            filter_deb = Gtk.FileFilter()
+            filter_deb.set_name("Debian Packages (*.deb)")
+            filter_deb.add_pattern("*.deb")
 
-        def on_response(dialog, response_id):
-            if response_id == Gtk.ResponseType.ACCEPT:
-                gfile = dialog.get_file()
-                if gfile:
-                    path = gfile.get_path()
-                    if path:
-                        self.prompt_install_file(path)
-            dialog.destroy()
+            filter_flatpak = Gtk.FileFilter()
+            filter_flatpak.set_name("Flatpak Packages (*.flatpak, *.flatpakref)")
+            filter_flatpak.add_pattern("*.flatpak")
+            filter_flatpak.add_pattern("*.flatpakref")
 
-        chooser.connect("response", on_response)
-        chooser.show()
+            filter_appimage = Gtk.FileFilter()
+            filter_appimage.set_name("AppImages (*.AppImage)")
+            filter_appimage.add_pattern("*.AppImage")
+            filter_appimage.add_pattern("*.appimage")
+
+            filters_list = Gio.ListStore.new(Gtk.FileFilter)
+            filters_list.append(filter_all)
+            filters_list.append(filter_deb)
+            filters_list.append(filter_flatpak)
+            filters_list.append(filter_appimage)
+            dialog.set_filters(filters_list)
+            dialog.set_default_filter(filter_all)
+
+            def on_open_finish(dlg, result):
+                try:
+                    gfile = dlg.open_finish(result)
+                    if gfile:
+                        path = gfile.get_path()
+                        if path and os.path.exists(path):
+                            self.prompt_install_file(path)
+                except Exception:
+                    pass
+
+            dialog.open(self, None, on_open_finish)
+        else:
+            chooser = Gtk.FileChooserNative.new(
+                "Select Package to Install",
+                self,
+                Gtk.FileChooserAction.OPEN,
+                "Install",
+                "Cancel"
+            )
+            chooser.set_current_folder(initial_folder)
+
+            filter_all = Gtk.FileFilter()
+            filter_all.set_name("All Supported Packages (*.deb, *.flatpak, *.flatpakref, *.AppImage)")
+            for pat in ["*.deb", "*.flatpak", "*.flatpakref", "*.AppImage", "*.appimage"]:
+                filter_all.add_pattern(pat)
+            chooser.add_filter(filter_all)
+
+            def on_response(dlg, response_id):
+                if response_id == Gtk.ResponseType.ACCEPT:
+                    gfile = dlg.get_file()
+                    if gfile:
+                        path = gfile.get_path()
+                        if path and os.path.exists(path):
+                            self.prompt_install_file(path)
+                dlg.destroy()
+
+            chooser.connect("response", on_response)
+            chooser.show()
 
     def prompt_install_file(self, file_path):
         try:

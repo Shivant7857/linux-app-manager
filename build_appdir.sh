@@ -33,6 +33,13 @@ export PATH="${HERE}/usr/bin:${PATH}"
 export XDG_DATA_DIRS="${HERE}/usr/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
 export PYTHONPATH="${HERE}/usr/bin:${PYTHONPATH}"
 
+# Ensure working directory is outside the temporary AppImage mount
+if [ -n "$OWD" ] && [ -d "$OWD" ]; then
+    cd "$OWD"
+else
+    cd "$HOME"
+fi
+
 exec python3 "${HERE}/usr/bin/app.py" "$@"
 EOF
 chmod +x "${APPDIR}/AppRun"
