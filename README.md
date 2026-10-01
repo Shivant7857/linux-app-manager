@@ -17,8 +17,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Shivant7857/linux-app-manager/releases/download/v1.0.0/LinuxAppManager-x86_64.AppImage">
-    <img src="https://img.shields.io/badge/📥%20Download-AppImage%20(v1.0.0)-16a34a?style=for-the-badge&logo=appimage&logoColor=white" alt="Download AppImage">
+  <a href="https://github.com/Shivant7857/linux-app-manager/releases/latest">
+    <img src="https://img.shields.io/badge/📥%20Download-AppImage%20(v1.2.0)-16a34a?style=for-the-badge&logo=appimage&logoColor=white" alt="Download AppImage">
   </a>
 </p>
 
@@ -63,9 +63,15 @@
   - 🟠 **Debian (`.deb` / APT)**: Scans system desktop files and batch resolves package ownership using `dpkg -S`.
   - 🟣 **Snap**: Detects user-installed snaps, track revisions, and package information.
   - 🔵 **Standalone AppImage**: Automatically scans `~/Applications`, `~/Downloads`, `/opt`, `~/.local/bin`, and `~` for `.AppImage` files.
-- 📥 **One-Click Package Installer (NEW in v1.1.0)**:
+- 🧬 **Backup & Clone System (NEW in v1.2.0)**:
+  - 📦 **Backup Mode (Apps Only)**: Exports a lightweight installation blueprint + standalone AppImages. Perfect for rapidly provisioning new computers or sharing with friends without sharing any personal data.
+  - 🧬 **Clone Mode (Apps + Login Data & Sessions)**: Full state replication! Bundles your applications together with active login sessions, credentials, extensions, and local databases (`~/.var/app/` for Flatpak, `~/snap/` for Snap, `~/.config/` and `~/.local/share/` for Deb & AppImage).
+  - 🧹 **Smart Cache Exclusion**: Automatically strips multi-gigabyte cache directories (`*Cache*`, `*GPUCache*`, `*.tmp`, `*.log`), keeping `.lam` archives compact while keeping 100% of logins, tokens, and cookies intact.
+  - ☑️ **Granular Selection Mode**: Select all apps or cherry-pick specific applications with search filtering and live data size calculation.
+  - 📥 **One-Click Restore Engine**: Open any `.lam` backup file to selectively restore applications, download missing packages, and restore saved configurations in seconds.
+- 📥 **One-Click Package Installer**:
   - **In-App Install**: Use the header **`+ Install File`** button to browse and install `.deb`, `.flatpak`, `.flatpakref`, or `.AppImage` files.
-  - **"Open With..." Desktop Integration**: Right-click any `.deb`, `.flatpak`, or `.AppImage` in your Linux file manager and choose **Open with Linux App Manager** to inspect and install with one click!
+  - **"Open With..." Desktop Integration**: Right-click any `.deb`, `.flatpak`, `.AppImage`, or `.lam` package in your file manager to install or restore.
   - **Smart Dependency Resolution**: Installs `.deb` packages via APT to automatically pull missing dependencies.
   - **Automated AppImage Desktop Integration**: Moves AppImages to `~/Applications/`, marks executable, and generates a `.desktop` entry in your Application Menu.
 - ⚡ **Ultra Fast Discovery**: Sub-second full system indexing (< 0.75s) using optimized batch queries and asynchronous threading.

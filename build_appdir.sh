@@ -14,6 +14,7 @@ echo "=== Copying application files ==="
 cp "${DIR}/app.py" "${APPDIR}/usr/bin/app.py"
 cp "${DIR}/scanner.py" "${APPDIR}/usr/bin/scanner.py"
 cp "${DIR}/installer.py" "${APPDIR}/usr/bin/installer.py"
+cp "${DIR}/backup_manager.py" "${APPDIR}/usr/bin/backup_manager.py"
 chmod +x "${APPDIR}/usr/bin/app.py"
 
 cp "${DIR}/linux-app-manager.desktop" "${APPDIR}/linux-app-manager.desktop"
